@@ -5,6 +5,7 @@ class AnnouncementsController < ApplicationController
   # GET /announcements.json
   def index
     @announcements = Announcement.all
+    @announcements = @announcements.find_all { |post| post.expiration >= DateTime.current.midnight && post.available == true }
   end
 
   # GET /announcements/1
@@ -24,7 +25,7 @@ class AnnouncementsController < ApplicationController
   # POST /announcements
   # POST /announcements.json
   def create
-    @announcement = Announcement.new(announcement_params)
+    @announcement = current_user.announcements.build(announcement_params)
 
     respond_to do |format|
       if @announcement.save
