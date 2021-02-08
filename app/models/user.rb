@@ -6,5 +6,4 @@ class User < ApplicationRecord
   has_many :announcements
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :user_id, presence: true
 end
